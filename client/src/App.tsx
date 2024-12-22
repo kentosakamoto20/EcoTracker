@@ -1,7 +1,8 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, useLocation } from "wouter";
 import { useUser } from "./hooks/use-user";
 import { Loader2 } from "lucide-react";
 import AuthPage from "./pages/AuthPage";
+import MenuPage from "./pages/MenuPage";
 import DashboardPage from "./pages/DashboardPage";
 import ExaminationPage from "./pages/ExaminationPage";
 import InvoicePage from "./pages/InvoicePage";
@@ -10,6 +11,7 @@ import Navigation from "./components/Navigation";
 
 function App() {
   const { user, isLoading } = useUser();
+  const [location] = useLocation();
 
   if (isLoading) {
     return (
@@ -23,12 +25,15 @@ function App() {
     return <AuthPage />;
   }
 
+  const showNavigation = location !== "/";
+
   return (
     <div className="min-h-screen bg-background">
-      <Navigation />
-      <main className="container mx-auto py-6 px-4">
+      {showNavigation && <Navigation />}
+      <main className={showNavigation ? "container mx-auto py-6 px-4" : ""}>
         <Switch>
-          <Route path="/" component={DashboardPage} />
+          <Route path="/" component={MenuPage} />
+          <Route path="/dashboard" component={DashboardPage} />
           <Route path="/examinations" component={ExaminationPage} />
           <Route path="/invoices" component={InvoicePage} />
           <Route path="/master-data" component={MasterDataPage} />

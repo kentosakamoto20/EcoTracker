@@ -23,13 +23,13 @@ import {
 import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
-  petId: z.string().min(1, "Please select a pet"),
-  diseaseId: z.string().min(1, "Please select a disease"),
-  examinationDate: z.string().min(1, "Please select a date"),
+  petId: z.string().min(1, "ペットを選択してください"),
+  diseaseId: z.string().min(1, "病名を選択してください"),
+  examinationDate: z.string().min(1, "診察日を選択してください"),
   notes: z.string().optional(),
   medications: z.array(z.object({
-    medicationId: z.string().min(1, "Please select a medication"),
-    quantity: z.string().min(1, "Please enter a quantity"),
+    medicationId: z.string().min(1, "薬を選択してください"),
+    quantity: z.string().min(1, "数量を入力してください"),
   })),
 });
 
@@ -100,14 +100,14 @@ export default function ExaminationForm() {
           name="petId"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Pet</FormLabel>
+              <FormLabel>ペット</FormLabel>
               <Select
                 onValueChange={field.onChange}
                 defaultValue={field.value}
               >
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select pet" />
+                    <SelectValue placeholder="ペットを選択" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -128,14 +128,14 @@ export default function ExaminationForm() {
           name="diseaseId"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Disease</FormLabel>
+              <FormLabel>病名</FormLabel>
               <Select
                 onValueChange={field.onChange}
                 defaultValue={field.value}
               >
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select disease" />
+                    <SelectValue placeholder="病名を選択" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -159,7 +159,7 @@ export default function ExaminationForm() {
           name="examinationDate"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Examination Date</FormLabel>
+              <FormLabel>診察日</FormLabel>
               <FormControl>
                 <Input type="date" {...field} />
               </FormControl>
@@ -173,7 +173,7 @@ export default function ExaminationForm() {
           name="notes"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Notes</FormLabel>
+              <FormLabel>備考</FormLabel>
               <FormControl>
                 <Textarea {...field} />
               </FormControl>
@@ -183,7 +183,7 @@ export default function ExaminationForm() {
         />
 
         <div className="space-y-4">
-          <h3 className="font-medium">Medications</h3>
+          <h3 className="font-medium">投薬</h3>
           {form.watch("medications").map((_, index) => (
             <div key={index} className="flex gap-4">
               <FormField
@@ -197,7 +197,7 @@ export default function ExaminationForm() {
                     >
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select medication" />
+                          <SelectValue placeholder="薬を選択" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -224,7 +224,7 @@ export default function ExaminationForm() {
                     <FormControl>
                       <Input
                         type="number"
-                        placeholder="Quantity"
+                        placeholder="数量"
                         {...field}
                       />
                     </FormControl>
@@ -245,12 +245,12 @@ export default function ExaminationForm() {
               ])
             }
           >
-            Add Medication
+            薬を追加
           </Button>
         </div>
 
         <Button type="submit" disabled={mutation.isPending}>
-          {mutation.isPending ? "Saving..." : "Save Examination"}
+          {mutation.isPending ? "保存中..." : "診察情報を保存"}
         </Button>
       </form>
     </Form>

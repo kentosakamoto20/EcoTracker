@@ -30,7 +30,7 @@ export default function ExaminationPage() {
         <TabsContent value="new">
           <Card>
             <CardHeader>
-              <CardTitle>New Examination</CardTitle>
+              <CardTitle>新規診察登録</CardTitle>
             </CardHeader>
             <CardContent>
               <ExaminationForm />
@@ -41,7 +41,7 @@ export default function ExaminationPage() {
         <TabsContent value="history">
           <Card>
             <CardHeader>
-              <CardTitle>Examination History</CardTitle>
+              <CardTitle>診察履歴一覧</CardTitle>
             </CardHeader>
             <CardContent>
               {isLoading ? (
@@ -54,10 +54,10 @@ export default function ExaminationPage() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Date</TableHead>
-                      <TableHead>Pet</TableHead>
-                      <TableHead>Disease</TableHead>
-                      <TableHead>Notes</TableHead>
+                      <TableHead>診察日</TableHead>
+                      <TableHead>ペット名</TableHead>
+                      <TableHead>病名</TableHead>
+                      <TableHead>備考</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
