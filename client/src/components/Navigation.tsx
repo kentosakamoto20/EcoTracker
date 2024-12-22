@@ -10,10 +10,9 @@ import {
 } from "lucide-react";
 
 const navItems = [
-  { href: "/", label: "Dashboard", icon: HomeIcon },
-  { href: "/examinations", label: "Examinations", icon: StethoscopeIcon },
-  { href: "/invoices", label: "Invoices", icon: FileTextIcon },
-  { href: "/master-data", label: "Master Data", icon: DatabaseIcon },
+  { href: "/examinations", label: "診察情報登録", icon: StethoscopeIcon },
+  { href: "/invoices", label: "請求書発行", icon: FileTextIcon },
+  { href: "/master-data", label: "マスタ登録", icon: DatabaseIcon },
 ];
 
 export default function Navigation() {
@@ -30,7 +29,7 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <h1 className="text-xl font-bold text-primary mr-8">
-              Vet Clinic
+              動物病院管理
             </h1>
             <div className="flex space-x-4">
               {navItems.map(({ href, label, icon: Icon }) => (
@@ -56,7 +55,7 @@ export default function Navigation() {
             className="text-gray-600"
           >
             <LogOutIcon className="h-4 w-4 mr-2" />
-            Logout
+            ログアウト
           </Button>
         </div>
       </div>

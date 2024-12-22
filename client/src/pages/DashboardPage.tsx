@@ -27,25 +27,25 @@ export default function DashboardPage() {
 
   const stats = [
     {
-      title: "Total Owners",
+      title: "飼い主数",
       value: owners?.length ?? 0,
       icon: UserIcon,
       loading: loadingOwners,
     },
     {
-      title: "Total Pets",
+      title: "ペット数",
       value: pets?.length ?? 0,
       icon: PawPrintIcon,
       loading: loadingPets,
     },
     {
-      title: "Examinations",
+      title: "診察件数",
       value: examinations?.length ?? 0,
       icon: StethoscopeIcon,
       loading: loadingExaminations,
     },
     {
-      title: "Pending Invoices",
+      title: "未払い請求書",
       value: invoices?.filter((i: any) => !i.paid).length ?? 0,
       icon: BanknoteIcon,
       loading: loadingInvoices,
@@ -54,7 +54,7 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold">Dashboard</h1>
+      <h1 className="text-3xl font-bold">ダッシュボード</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat) => (

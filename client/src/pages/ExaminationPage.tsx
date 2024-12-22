@@ -19,12 +19,12 @@ export default function ExaminationPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold">Examinations</h1>
+      <h1 className="text-3xl font-bold">診察情報</h1>
 
       <Tabs defaultValue="new">
         <TabsList>
-          <TabsTrigger value="new">New Examination</TabsTrigger>
-          <TabsTrigger value="history">Examination History</TabsTrigger>
+          <TabsTrigger value="new">新規診察</TabsTrigger>
+          <TabsTrigger value="history">診察履歴</TabsTrigger>
         </TabsList>
 
         <TabsContent value="new">

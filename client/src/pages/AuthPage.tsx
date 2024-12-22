@@ -42,14 +42,14 @@ export default function AuthPage() {
       <Card className="w-full max-w-md mx-4">
         <CardHeader>
           <CardTitle className="text-2xl text-center font-bold">
-            Veterinary Clinic Management
+            動物病院管理システム
           </CardTitle>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="login">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="login">Login</TabsTrigger>
-              <TabsTrigger value="register">Register</TabsTrigger>
+              <TabsTrigger value="login">ログイン</TabsTrigger>
+              <TabsTrigger value="register">新規登録</TabsTrigger>
             </TabsList>
 
             <TabsContent value="login">
@@ -61,7 +61,7 @@ export default function AuthPage() {
                 className="space-y-4"
               >
                 <div className="space-y-2">
-                  <Label htmlFor="username">Username</Label>
+                  <Label htmlFor="username">ユーザー名</Label>
                   <Input
                     id="username"
                     value={username}
@@ -70,7 +70,7 @@ export default function AuthPage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password">パスワード</Label>
                   <Input
                     id="password"
                     type="password"
@@ -80,7 +80,7 @@ export default function AuthPage() {
                   />
                 </div>
                 <Button type="submit" className="w-full">
-                  Login
+                  ログイン
                 </Button>
               </form>
             </TabsContent>
@@ -113,7 +113,7 @@ export default function AuthPage() {
                   />
                 </div>
                 <Button type="submit" className="w-full">
-                  Register
+                  登録
                 </Button>
               </form>
             </TabsContent>
