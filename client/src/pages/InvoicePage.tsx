@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
+import BackToMenuButton from "@/components/BackToMenuButton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Table,
@@ -24,18 +25,19 @@ export default function InvoicePage() {
 
   return (
     <div className="space-y-6">
+      <BackToMenuButton />
       <h1 className="text-3xl font-bold">Invoices</h1>
 
       <Tabs defaultValue="generate">
         <TabsList>
-          <TabsTrigger value="generate">Generate Invoice</TabsTrigger>
-          <TabsTrigger value="history">Invoice History</TabsTrigger>
+          <TabsTrigger value="generate">請求書作成</TabsTrigger>
+          <TabsTrigger value="history">請求履歴</TabsTrigger>
         </TabsList>
 
         <TabsContent value="generate">
           <Card>
             <CardHeader>
-              <CardTitle>Generate New Invoice</CardTitle>
+              <CardTitle>新規請求書作成</CardTitle>
             </CardHeader>
             <CardContent>
               <InvoiceGenerator />

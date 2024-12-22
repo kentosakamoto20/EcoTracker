@@ -116,7 +116,7 @@ export default function MasterDataTable({ type, columns }: Props) {
               setFormData({});
             }}>
               <PlusIcon className="h-4 w-4 mr-2" />
-              Add New
+              新規追加
             </Button>
           </DialogTrigger>
           <DialogContent>
@@ -148,7 +148,7 @@ export default function MasterDataTable({ type, columns }: Props) {
                 </div>
               ))}
               <Button type="submit" disabled={mutation.isPending}>
-                {mutation.isPending ? "Saving..." : "Save"}
+                {mutation.isPending ? "保存中..." : "保存"}
               </Button>
             </form>
           </DialogContent>
@@ -162,7 +162,7 @@ export default function MasterDataTable({ type, columns }: Props) {
               {columns.map((column) => (
                 <TableHead key={column.key}>{column.label}</TableHead>
               ))}
-              <TableHead>Actions</TableHead>
+              <TableHead>操作</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

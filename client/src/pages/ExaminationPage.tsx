@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import BackToMenuButton from "@/components/BackToMenuButton";
 
 export default function ExaminationPage() {
   const { data: examinations, isLoading } = useQuery<any[]>({
@@ -19,6 +20,8 @@ export default function ExaminationPage() {
 
   return (
     <div className="space-y-6">
+      <BackToMenuButton />
+      <BackToMenuButton /> {/* Added BackToMenuButton */}
       <h1 className="text-3xl font-bold">診察情報</h1>
 
       <Tabs defaultValue="new">

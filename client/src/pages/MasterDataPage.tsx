@@ -1,5 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import MasterDataTable from "@/components/MasterDataTable";
+import BackToMenuButton from "@/components/BackToMenuButton";
 
 export default function MasterDataPage() {
   const masterDataTypes = [
@@ -41,6 +42,7 @@ export default function MasterDataPage() {
 
   return (
     <div className="space-y-6">
+      <BackToMenuButton />
       <h1 className="text-3xl font-bold">Master Data</h1>
 
       <Tabs defaultValue="owners">

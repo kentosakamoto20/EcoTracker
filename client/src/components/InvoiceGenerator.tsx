@@ -75,13 +75,13 @@ export default function InvoiceGenerator() {
     <Card>
       <CardContent className="pt-6 space-y-4">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Select Owner</label>
+          <label className="text-sm font-medium">飼い主選択</label>
           <Select
             value={selectedOwner}
             onValueChange={setSelectedOwner}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select an owner" />
+              <SelectValue placeholder="飼い主を選択" />
             </SelectTrigger>
             <SelectContent>
               {owners?.map((owner) => (
@@ -96,7 +96,7 @@ export default function InvoiceGenerator() {
         {selectedOwner && examinations && (
           <div className="space-y-4">
             <div className="border rounded-lg p-4 space-y-2">
-              <h3 className="font-medium">Examinations</h3>
+              <h3 className="font-medium">診察履歴</h3>
               {examinations
                 .filter((exam) => exam.petId === parseInt(selectedOwner))
                 .map((exam) => (
@@ -126,7 +126,7 @@ export default function InvoiceGenerator() {
               ) : (
                 <FileDownIcon className="h-4 w-4 mr-2" />
               )}
-              Generate Invoice
+              請求書を作成
             </Button>
           </div>
         )}

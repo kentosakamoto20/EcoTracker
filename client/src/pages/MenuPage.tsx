@@ -48,12 +48,9 @@ export default function MenuPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-muted-foreground mb-4">
+                    <p className="text-sm text-muted-foreground">
                       {item.description}
                     </p>
-                    <Button className="w-full">
-                      選択
-                    </Button>
                   </CardContent>
                 </Card>
               </a>
