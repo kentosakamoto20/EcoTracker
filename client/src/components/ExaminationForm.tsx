@@ -35,9 +35,14 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export default function ExaminationForm() {
+interface Props {
+  examination?: any;
+}
+
+export default function ExaminationForm({ examination }: Props) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const [location, navigate] = useLocation();
 
   const { data: pets } = useQuery<any[]>({
     queryKey: ["/api/pets"],
@@ -53,7 +58,18 @@ export default function ExaminationForm() {
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
+    defaultValues: examination ? {
+      petId: examination.petId.toString(),
+      diseaseId: examination.diseaseId.toString(),
+      examinationDate: new Date(examination.examinationDate).toISOString().split('T')[0],
+      notes: examination.notes,
+      medications: examination.medications?.length > 0 
+        ? examination.medications.map((med: any) => ({
+            medicationId: med.medicationId.toString(),
+            quantity: med.quantity.toString(),
+          }))
+        : [{ medicationId: "", quantity: "" }],
+    } : {
       medications: [{ medicationId: "", quantity: "" }],
     },
   });
@@ -66,8 +82,10 @@ export default function ExaminationForm() {
         examinationDate: new Date(values.examinationDate).toISOString(),
       };
 
-      const response = await fetch("/api/examinations", {
-        method: "POST",
+      const response = await fetch(examination 
+        ? `/api/examinations/${examination.id}` 
+        : "/api/examinations", {
+        method: examination ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formattedValues),
       });

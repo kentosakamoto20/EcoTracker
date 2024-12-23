@@ -35,6 +35,7 @@ function App() {
           <Route path="/" component={MenuPage} />
           <Route path="/dashboard" component={DashboardPage} />
           <Route path="/examinations" component={ExaminationPage} />
+          <Route path="/examinations/edit/:id" component={EditExaminationPage} />
           <Route path="/invoices" component={InvoicePage} />
           <Route path="/master-data" component={MasterDataPage} />
           <Route>404 - Not Found</Route>

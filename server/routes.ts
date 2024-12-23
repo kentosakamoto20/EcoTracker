@@ -6,7 +6,7 @@ import {
   owners, pets, diseases, medications, examinations, 
   examinationMedications, invoices 
 } from "@db/schema";
-import { eq } from "drizzle-orm";
+import { eq, gte, lte } from "drizzle-orm";
 import ExcelJS from "exceljs";
 
 export function registerRoutes(app: Express): Server {
@@ -55,8 +55,71 @@ export function registerRoutes(app: Express): Server {
 
   // Examination routes
   app.get("/api/examinations", async (req, res) => {
-    const allExaminations = await db.select().from(examinations);
-    res.json(allExaminations);
+    try {
+      const { petId, diseaseId, dateFrom, dateTo } = req.query;
+      
+      let query = db
+        .select({
+          id: examinations.id,
+          petId: examinations.petId,
+          diseaseId: examinations.diseaseId,
+          examinationDate: examinations.examinationDate,
+          notes: examinations.notes,
+          pet: pets,
+          disease: diseases,
+        })
+        .from(examinations)
+        .leftJoin(pets, eq(examinations.petId, pets.id))
+        .leftJoin(diseases, eq(examinations.diseaseId, diseases.id));
+
+      if (petId) {
+        query = query.where(eq(examinations.petId, parseInt(petId as string)));
+      }
+      if (diseaseId) {
+        query = query.where(eq(examinations.diseaseId, parseInt(diseaseId as string)));
+      }
+      if (dateFrom) {
+        query = query.where(gte(examinations.examinationDate, new Date(dateFrom as string)));
+      }
+      if (dateTo) {
+        query = query.where(lte(examinations.examinationDate, new Date(dateTo as string)));
+      }
+
+      const results = await query;
+      res.json(results);
+    } catch (error: any) {
+      console.error('Error fetching examinations:', error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.get("/api/examinations/:id", async (req, res) => {
+    try {
+      const [examination] = await db
+        .select({
+          id: examinations.id,
+          petId: examinations.petId,
+          diseaseId: examinations.diseaseId,
+          examinationDate: examinations.examinationDate,
+          notes: examinations.notes,
+          medications: examinationMedications,
+        })
+        .from(examinations)
+        .leftJoin(
+          examinationMedications,
+          eq(examinations.id, examinationMedications.examinationId)
+        )
+        .where(eq(examinations.id, parseInt(req.params.id)));
+
+      if (!examination) {
+        return res.status(404).json({ error: "Examination not found" });
+      }
+
+      res.json(examination);
+    } catch (error: any) {
+      console.error('Error fetching examination:', error);
+      res.status(500).json({ error: error.message });
+    }
   });
 
   app.post("/api/examinations", async (req, res) => {
