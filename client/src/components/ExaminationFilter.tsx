@@ -33,7 +33,10 @@ export default function ExaminationFilter({ onFilterChange }: Props) {
   });
 
   const handleFilterChange = (key: keyof Filters, value: string) => {
-    const newFilters = { ...filters, [key]: value || undefined };
+    const newFilters = {
+      ...filters,
+      [key]: value === "all" ? undefined : value
+    };
     setFilters(newFilters);
     onFilterChange(newFilters);
   };
@@ -51,7 +54,7 @@ export default function ExaminationFilter({ onFilterChange }: Props) {
               <SelectValue placeholder="すべて" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">すべて</SelectItem>
+              <SelectItem value="all">すべて</SelectItem>
               {pets?.map((pet) => (
                 <SelectItem key={pet.id} value={pet.id.toString()}>
                   {pet.name}
@@ -71,7 +74,7 @@ export default function ExaminationFilter({ onFilterChange }: Props) {
               <SelectValue placeholder="すべて" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">すべて</SelectItem>
+              <SelectItem value="all">すべて</SelectItem>
               {diseases?.map((disease) => (
                 <SelectItem key={disease.id} value={disease.id.toString()}>
                   {disease.name}
