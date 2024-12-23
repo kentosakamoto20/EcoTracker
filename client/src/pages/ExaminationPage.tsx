@@ -20,7 +20,6 @@ export default function ExaminationPage() {
 
   return (
     <div className="space-y-6">
-      <BackToMenuButton />
       <h1 className="text-3xl font-bold">診察情報</h1>
 
       <Tabs defaultValue="new">
