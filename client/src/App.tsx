@@ -5,6 +5,7 @@ import AuthPage from "./pages/AuthPage";
 import MenuPage from "./pages/MenuPage";
 import DashboardPage from "./pages/DashboardPage";
 import ExaminationPage from "./pages/ExaminationPage";
+import EditExaminationPage from "./pages/EditExaminationPage";
 import InvoicePage from "./pages/InvoicePage";
 import MasterDataPage from "./pages/MasterDataPage";
 import Navigation from "./components/Navigation";
