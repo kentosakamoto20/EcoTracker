@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -42,7 +43,7 @@ interface Props {
 export default function ExaminationForm({ examination }: Props) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  const [location, navigate] = useLocation();
+  const [, navigate] = useLocation();
 
   const { data: pets } = useQuery<any[]>({
     queryKey: ["/api/pets"],

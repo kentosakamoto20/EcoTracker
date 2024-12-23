@@ -6,7 +6,7 @@ import {
   owners, pets, diseases, medications, examinations, 
   examinationMedications, invoices 
 } from "@db/schema";
-import { eq, gte, lte } from "drizzle-orm";
+import { eq, gte, lte, and } from "drizzle-orm";
 import ExcelJS from "exceljs";
 
 export function registerRoutes(app: Express): Server {
@@ -58,7 +58,21 @@ export function registerRoutes(app: Express): Server {
     try {
       const { petId, diseaseId, dateFrom, dateTo } = req.query;
       
-      let query = db
+      const conditions = [];
+      if (petId) {
+        conditions.push(eq(examinations.petId, parseInt(petId as string)));
+      }
+      if (diseaseId) {
+        conditions.push(eq(examinations.diseaseId, parseInt(diseaseId as string)));
+      }
+      if (dateFrom) {
+        conditions.push(gte(examinations.examinationDate, new Date(dateFrom as string)));
+      }
+      if (dateTo) {
+        conditions.push(lte(examinations.examinationDate, new Date(dateTo as string)));
+      }
+
+      const results = await db
         .select({
           id: examinations.id,
           petId: examinations.petId,
@@ -70,22 +84,9 @@ export function registerRoutes(app: Express): Server {
         })
         .from(examinations)
         .leftJoin(pets, eq(examinations.petId, pets.id))
-        .leftJoin(diseases, eq(examinations.diseaseId, diseases.id));
+        .leftJoin(diseases, eq(examinations.diseaseId, diseases.id))
+        .where(conditions.length > 0 ? and(...conditions) : undefined);
 
-      if (petId) {
-        query = query.where(eq(examinations.petId, parseInt(petId as string)));
-      }
-      if (diseaseId) {
-        query = query.where(eq(examinations.diseaseId, parseInt(diseaseId as string)));
-      }
-      if (dateFrom) {
-        query = query.where(gte(examinations.examinationDate, new Date(dateFrom as string)));
-      }
-      if (dateTo) {
-        query = query.where(lte(examinations.examinationDate, new Date(dateTo as string)));
-      }
-
-      const results = await query;
       res.json(results);
     } catch (error: any) {
       console.error('Error fetching examinations:', error);
@@ -95,21 +96,18 @@ export function registerRoutes(app: Express): Server {
 
   app.get("/api/examinations/:id", async (req, res) => {
     try {
-      const [examination] = await db
-        .select({
-          id: examinations.id,
-          petId: examinations.petId,
-          diseaseId: examinations.diseaseId,
-          examinationDate: examinations.examinationDate,
-          notes: examinations.notes,
-          medications: examinationMedications,
-        })
-        .from(examinations)
-        .leftJoin(
-          examinationMedications,
-          eq(examinations.id, examinationMedications.examinationId)
-        )
-        .where(eq(examinations.id, parseInt(req.params.id)));
+      const examination = await db.query.examinations.findFirst({
+        where: eq(examinations.id, parseInt(req.params.id)),
+        with: {
+          pet: true,
+          disease: true,
+          medications: {
+            with: {
+              medication: true,
+            },
+          },
+        },
+      });
 
       if (!examination) {
         return res.status(404).json({ error: "Examination not found" });
