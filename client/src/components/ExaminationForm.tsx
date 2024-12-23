@@ -60,10 +60,16 @@ export default function ExaminationForm() {
 
   const mutation = useMutation({
     mutationFn: async (values: FormValues) => {
+      // 日付をISO文字列形式に変換
+      const formattedValues = {
+        ...values,
+        examinationDate: new Date(values.examinationDate).toISOString(),
+      };
+
       const response = await fetch("/api/examinations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify(formattedValues),
       });
 
       if (!response.ok) {

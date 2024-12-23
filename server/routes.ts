@@ -60,8 +60,36 @@ export function registerRoutes(app: Express): Server {
   });
 
   app.post("/api/examinations", async (req, res) => {
-    const [newExamination] = await db.insert(examinations).values(req.body).returning();
-    res.json(newExamination);
+    try {
+      const examinationData = {
+        ...req.body,
+        petId: parseInt(req.body.petId),
+        diseaseId: parseInt(req.body.diseaseId),
+        examinationDate: new Date(req.body.examinationDate),
+      };
+
+      const [newExamination] = await db
+        .insert(examinations)
+        .values(examinationData)
+        .returning();
+
+      // 投薬情報の登録
+      if (req.body.medications && req.body.medications.length > 0) {
+        for (const med of req.body.medications) {
+          await db.insert(examinationMedications).values({
+            examinationId: newExamination.id,
+            medicationId: parseInt(med.medicationId),
+            quantity: parseFloat(med.quantity),
+            price: 0, // 薬価はマスタから取得して設定する必要があります
+          });
+        }
+      }
+
+      res.json(newExamination);
+    } catch (error: any) {
+      console.error('Error creating examination:', error);
+      res.status(500).json({ error: error.message });
+    }
   });
 
   // Invoice routes
