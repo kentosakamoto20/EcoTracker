@@ -26,7 +26,7 @@ export default function InvoicePage() {
   return (
     <div className="space-y-6">
       <BackToMenuButton />
-      <h1 className="text-3xl font-bold">Invoices</h1>
+      <h1 className="text-3xl font-bold">請求書管理</h1>
 
       <Tabs defaultValue="generate">
         <TabsList>
@@ -48,7 +48,7 @@ export default function InvoicePage() {
         <TabsContent value="history">
           <Card>
             <CardHeader>
-              <CardTitle>Invoice History</CardTitle>
+              <CardTitle>請求履歴一覧</CardTitle>
             </CardHeader>
             <CardContent>
               {isLoading ? (
@@ -61,11 +61,11 @@ export default function InvoicePage() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Invoice #</TableHead>
-                      <TableHead>Owner</TableHead>
-                      <TableHead>Amount</TableHead>
-                      <TableHead>Due Date</TableHead>
-                      <TableHead>Status</TableHead>
+                      <TableHead>請求書番号</TableHead>
+                      <TableHead>飼い主</TableHead>
+                      <TableHead>金額</TableHead>
+                      <TableHead>支払期限</TableHead>
+                      <TableHead>状態</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>

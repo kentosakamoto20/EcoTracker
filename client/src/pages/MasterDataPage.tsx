@@ -43,15 +43,14 @@ export default function MasterDataPage() {
   return (
     <div className="space-y-6">
       <BackToMenuButton />
-      <h1 className="text-3xl font-bold">Master Data</h1>
+      <h1 className="text-3xl font-bold">マスタ管理</h1>
 
       <Tabs defaultValue="owners">
         <TabsList className="grid grid-cols-4 w-full">
-          {masterDataTypes.map(({ type }) => (
-            <TabsTrigger key={type} value={type} className="capitalize">
-              {type}
-            </TabsTrigger>
-          ))}
+          <TabsTrigger value="owners">飼い主</TabsTrigger>
+          <TabsTrigger value="pets">ペット</TabsTrigger>
+          <TabsTrigger value="diseases">病名</TabsTrigger>
+          <TabsTrigger value="medications">薬剤</TabsTrigger>
         </TabsList>
 
         {masterDataTypes.map(({ type, columns }) => (
